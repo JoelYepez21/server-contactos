@@ -35,4 +35,20 @@ formCreateUser.addEventListener('submit', async e =>{
         }, 3000);
         inputCreateUser.value = '';
     }
-})
+});
+
+formLogin.addEventListener('submit', async e =>{
+    e.preventDefault();
+    const users = await (await fetch('http://localhost:3007/users', {method: 'GET'})).json();
+    const user = users.find(user => user.username === inputLogin.value);
+    if (!user) {
+        notification.innerHTML = 'El usuario no existe';
+        notification.classList.add('show-notification');
+        setTimeout(() =>{
+            notification.classList.remove('show-notification');
+        }, 3000);
+    } else {
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = '../contactos-zona/index.html';
+    }
+});
