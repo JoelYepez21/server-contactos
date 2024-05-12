@@ -1,4 +1,34 @@
 {
-    "users": [],
-    "contacts": []
+  "users": [
+    {
+      "id": "c66a",
+      "username": "joel10"
+    }
+  ],
+  "contacts": [
+    {
+      "id": "7e39",
+      "name": "Joel Yepez",
+      "number": "04126313761",
+      "user": "joel10"
+    },
+    {
+      "id": "6e8c",
+      "name": "Ernesto Garcia",
+      "number": "04242569878",
+      "user": "joel10"
+    },
+    {
+      "id": "f3b4",
+      "name": "Valeria Avila",
+      "number": "04125879642",
+      "user": "joel10"
+    },
+    {
+      "id": "972e",
+      "name": "Karla Kimenez",
+      "number": "04241548796",
+      "user": "joel10"
+    }
+  ]
 }
