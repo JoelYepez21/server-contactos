@@ -158,6 +158,9 @@ li > div > p{
 .advertencia{
     border: solid yellow 2px;
 }
+.correct{
+    border: solid rgb(43, 255, 43) 2px;
+}
 #cerrar-sesion-btn{
     padding: 1rem;
     width: 10rem;
