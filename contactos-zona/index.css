@@ -85,6 +85,8 @@ input::placeholder{
     background: #15251D;
     color: white;
     border-radius: 0.5rem;
+}
+.desabilitado{
     opacity: 0.5;
 }
 /* estilos lista de contactos */
@@ -155,6 +157,19 @@ li > div > p{
 }
 .advertencia{
     border: solid yellow 2px;
+}
+#cerrar-sesion-btn{
+    padding: 1rem;
+    width: 10rem;
+    border-radius: 0.5rem;
+    color: white;
+    background-color: #15251D;
+    align-self: center;
+    transition: 0.2s ease-in all;
+}
+#cerrar-sesion-btn:hover{
+    cursor: pointer;
+    background-color: #223b2e;
 }
 @media (min-width: 750px) {
     li > div {
