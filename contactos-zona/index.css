@@ -85,6 +85,7 @@ input::placeholder{
     background: #15251D;
     color: white;
     border-radius: 0.5rem;
+    border: none;
 }
 #form-btn:hover{
     cursor: pointer;
@@ -183,6 +184,7 @@ li > div > p{
     background-color: #15251D;
     align-self: center;
     transition: 0.2s ease-in all;
+    border: none;
 }
 #cerrar-sesion-btn:hover{
     cursor: pointer;
