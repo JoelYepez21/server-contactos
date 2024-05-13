@@ -86,6 +86,10 @@ input::placeholder{
     color: white;
     border-radius: 0.5rem;
 }
+#form-btn:hover{
+    cursor: pointer;
+    background-color: #223b2e;
+}
 .desabilitado{
     opacity: 0.5;
 }
@@ -133,27 +137,37 @@ li {
     height: 4rem;
     width: 3rem;
     border-radius: 0.5rem;
-    background-color: lightslategray;
+    background-color: #0E1211;
     color: white;
     border: none;
     transition: background 0.2s ease-in;
 }
 .edit-btn:hover{
     cursor: pointer;
-    background-color: rgb(159, 175, 192);
+    background-color: #303a37;
 }
 li > div {
     display: flex;
     flex-direction: column;
     color: white;
+    gap: 0.2rem;
 }
 li > div > p{
     padding: 0.5rem;
     border-radius: 0.5rem;
     text-align: center;
+    outline: none;
+}
+.editables {
+    background-color: lightslategray;
 }
 .editable {
-    background-color: #0E1211;
+    background-color: lightslategray;
+    cursor: pointer;
+}
+.editable:hover{
+    background-color: rgb(164, 181, 197);
+    cursor: pointer;
 }
 .advertencia{
     border: solid yellow 2px;
@@ -177,5 +191,6 @@ li > div > p{
 @media (min-width: 750px) {
     li > div {
         flex-direction: row;
+        gap: 1rem;
     }
 }

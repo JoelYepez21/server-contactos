@@ -7,15 +7,9 @@
   ],
   "contacts": [
     {
-      "id": "7e39",
-      "name": "Joel Yepez",
-      "number": "04126313761",
-      "user": "joel10"
-    },
-    {
       "id": "6e8c",
       "name": "Ernesto Garcia",
-      "number": "04242569878",
+      "number": "04242569478",
       "user": "joel10"
     },
     {
@@ -28,6 +22,24 @@
       "id": "972e",
       "name": "Karla Kimenez",
       "number": "04241548796",
+      "user": "joel10"
+    },
+    {
+      "id": "9e40",
+      "name": "Mariana Rivas",
+      "number": "04163578954",
+      "user": "joel10"
+    },
+    {
+      "id": "6c98",
+      "name": "Joel Yepez",
+      "number": "04126313761",
+      "user": "joel10"
+    },
+    {
+      "id": "3cfa",
+      "name": "Ernesto Avila",
+      "number": "04245896578",
       "user": "joel10"
     }
   ]

@@ -17,40 +17,57 @@ let EditnameValidation = true;
 let EditnumberValidation = true;
 
 // Functions
-const validateInput = (input, validation) => {
-    const infoText = input.parentElement.children[2];
-    // const infonumber = input.parentElement.children[3];
-    
-    // contacts.forEach(contact => {  
-    //   if (input.value == contact.number && validation){
-    //     infonumber.classList.add('show-info');
-        
-    //     validation = false;
-    //   } 
-    // });
+const validateEditInput = (input, validation) => {
     if (input.value === '') {
-      input.classList.remove('correct');
-      input.classList.remove('advertencia');
-      infoText.classList.remove('show-info');
-    } else if (validation) {
-      input.classList.add('correct');
-      input.classList.remove('advertencia');
-      infoText.classList.remove('show-info');
+        input.classList.remove('correct');
+        input.classList.remove('advertencia');
+      } else if (validation) {
+        input.classList.add('correct');
+        input.classList.remove('advertencia');
+      } else {
+        input.classList.add('advertencia');
+        input.classList.remove('correct');
+      }
+}
+const validateInput = async (input, validation) => {
+    const contactos = await (await fetch('http://localhost:3007/contacts', {method: 'GET'})).json();
+    const infoText = input.parentElement.children[2];
+    const infonumber = input.parentElement.children[3];
+    
+    contactos.forEach(contact => {  
+    if (input.value === contact.number && validation){
+        if (infoText.classList.contains('show-info')) {
+            infoText.classList.remove('show-info');
+        }
+        infonumber.classList.add('show-info');
+        input.classList.add('advertencia');
+        input.classList.remove('correct');
+        validation = false;
+    } else if (input.value === '') {
+        input.classList.remove('correct');
+        input.classList.remove('advertencia');
+        infoText.classList.remove('show-info');
+    } else if (validation ) {
+        input.classList.add('correct');
+        input.classList.remove('advertencia');
+        infoText.classList.remove('show-info');
     } else {
-      infoText.classList.add('show-info');
-      input.classList.add('advertencia');
-      input.classList.remove('correct');
+        infoText.classList.add('show-info');
+        input.classList.add('advertencia');
+        input.classList.remove('correct');
+        infonumber.classList.remove('show-info');
     }
-  
-    if (nameValidation && numberValidation) {
-      formBtn.disabled = false;
-      formBtn.classList.remove('desabilitado');
-      formBtn.classList.add('habilitado');
+
+    if (nameValidation && numberValidation && input.value != contact.number) {
+        formBtn.disabled = false;
+        formBtn.classList.remove('desabilitado');
+        formBtn.classList.add('habilitado');
     } else {
-      formBtn.disabled = true;
-      formBtn.classList.add('desabilitado');
-      formBtn.classList.remove('habilitado')
+        formBtn.disabled = true;
+        formBtn.classList.add('desabilitado');
+        formBtn.classList.remove('habilitado')
     }
+});
 };
 
 const getContacts = async () => {
@@ -78,8 +95,6 @@ const getContacts = async () => {
         `;
         list.append(li);
     });
-    console.log(userContactos);
-    
 };
 getContacts();
 
@@ -139,19 +154,13 @@ list.addEventListener('click', async e =>{
         await fetch(`http://localhost:3007/contacts/${id}`,{
             method: 'DELETE',});
         e.target.parentElement.remove();
-    } else if (e.target.classList.contains('delete-icon')) {
-        const id = e.target.parentElement.parentElement.id;
-        await fetch(`http://localhost:3007/contacts/${id}`,{
-            method: 'DELETE',});
-        e.target.parentElement.parentElement.remove();
     } else if (e.target.classList.contains('edit-btn')) {
         const editBtn = e.target;
         const id = e.target.parentElement.id;
         const li = e.target.parentElement;
-        const nameEdit = e.target.parentElement.children[1].children[0];
-        const numberEdit = e.target.parentElement.children[1].children[1];
-        console.log(editBtn);
-        if (nameEdit.classList.contains('editable') || numberEdit.classList.contains('editable')) {
+        const nameEdit = li.children[1].children[0];
+        const numberEdit = li.children[1].children[1];
+        if (nameEdit.classList.contains('editables') || numberEdit.classList.contains('editables')) {
             await fetch(`http://localhost:3007/contacts/${id}`, {
             method: 'PATCH',
             headers: {
@@ -159,40 +168,38 @@ list.addEventListener('click', async e =>{
             },
             body: JSON.stringify({name: nameEdit.innerHTML, number: numberEdit.innerHTML})
         });
-        nameEdit.classList.remove('editable');
-        numberEdit.classList.remove('editable');
-        e.target.classList.remove('editable');
-        e.target.innerHTML = `
+        nameEdit.classList.remove('editables');
+        numberEdit.classList.remove('editables');
+        editBtn.classList.remove('editable');
+        getContacts();
+        editBtn.innerHTML = `
         <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
         </svg>
         `
         } else {
-            e.target.classList.add('editable');
-            nameEdit.classList.add('editable');
-            numberEdit.classList.add('editable');
+            editBtn.classList.add('editable');
+            nameEdit.classList.add('editables');
+            numberEdit.classList.add('editables');
             nameEdit.setAttribute('contenteditable', 'true');
             numberEdit.setAttribute('contenteditable', 'true');
-            e.target.innerHTML = `
+            editBtn.innerHTML = `
              <svg class="edit-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L6.832 19.82a4.5 4.5 0 0 1-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 0 1 1.13-1.897L16.863 4.487Zm0 0L19.5 7.125" />
              </svg>
             `; 
             nameEdit.addEventListener('input', e => {
                 EditnameValidation = REGEX_NAME.test(nameEdit.innerHTML);
-                console.log(EditnameValidation);
-                console.log(nameEdit.innerHTML);
-                validateInput(nameEdit, EditnameValidation);
+                validateEditInput(nameEdit, EditnameValidation);
                 if (EditnameValidation && EditnumberValidation) {
-                  editBtn.disabled = true;
-                } else {
                   editBtn.disabled = false;
+                } else {
+                  editBtn.disabled = true;
                 }
             });
             numberEdit.addEventListener('input', e => {
                 EditnumberValidation = REGEX_NUMBER.test(numberEdit.innerHTML);
-                console.log(EditnumberValidation);
-                validateInput(numberEdit, EditnumberValidation);
+                validateEditInput(numberEdit, EditnumberValidation);
                 if (EditnumberValidation && EditnameValidation) {
                   editBtn.disabled = false;
                 } else {
@@ -200,9 +207,5 @@ list.addEventListener('click', async e =>{
                 }
               });
         }
-    } else if (e.target.classList.contains('edit-icon')) {
-        const li = e.target.parentElement.parentElement;
-        const nameEdit = e.target.parentElement.parentElement.children[1].children[0];
-        const numberEdit = e.target.parentElement.parentElement.children[1].children[1]
-    }
+    } 
 });
