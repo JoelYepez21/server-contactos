@@ -3,6 +3,10 @@
     {
       "id": "c66a",
       "username": "joel10"
+    },
+    {
+      "id": "433e",
+      "username": "Maria17"
     }
   ],
   "contacts": [
@@ -47,6 +51,24 @@
       "name": "Joel Caballero",
       "number": "04126354698",
       "user": "joel10"
+    },
+    {
+      "id": "6bb7",
+      "name": "Joel Jimenez",
+      "number": "04126313768",
+      "user": "joel10"
+    },
+    {
+      "id": "530b",
+      "name": "Victoria Mendoza",
+      "number": "04126313761",
+      "user": "Maria17"
+    },
+    {
+      "id": "a926",
+      "name": "Mariana Estrella",
+      "number": "04242896578",
+      "user": "Maria17"
     }
   ]
 }

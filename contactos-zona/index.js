@@ -9,12 +9,17 @@ const formBtn = document.querySelector('#form-btn');
 const form = document.querySelector('#form');
 const list = document.querySelector('#list');
 const user = JSON.parse(localStorage.getItem('user'));
+const closeBtn = document.querySelector('#cerrar-sesion-btn');
 
 // Validations
 let nameValidation = false;
 let numberValidation = false;
 let EditnameValidation = true;
 let EditnumberValidation = true;
+
+if (!user) {
+    window.location.href = '../home/index.html';
+}
 
 // Functions
 const validateEditInput = (input, validation) => {
@@ -33,8 +38,8 @@ const validateInput = async (input, validation) => {
     const contactos = await (await fetch('http://localhost:3007/contacts', {method: 'GET'})).json();
     const infoText = input.parentElement.children[2];
     const infonumber = input.parentElement.children[3];
-    
-    const contacto = contactos.find((contacto) => input.value === contacto.number);
+    const userContactos = contactos.filter(contacto => contacto.user === user.username);
+    const contacto = userContactos.find((contacto) => input.value === contacto.number);
     if (contacto) {
         validation = false;
         infonumber.classList.add('show-info');
@@ -207,4 +212,11 @@ list.addEventListener('click', async e =>{
               });
         }
     } 
+});
+
+console.log(closeBtn);
+
+closeBtn.addEventListener('click', async e => {
+    localStorage.removeItem('user');
+    window.location.href = '../home/index.html';
 });
