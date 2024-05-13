@@ -34,31 +34,31 @@ const validateInput = async (input, validation) => {
     const infoText = input.parentElement.children[2];
     const infonumber = input.parentElement.children[3];
     
-    contactos.forEach(contact => {  
-    if (input.value === contact.number && validation){
-        if (infoText.classList.contains('show-info')) {
-            infoText.classList.remove('show-info');
-        }
-        infonumber.classList.add('show-info');
-        input.classList.add('advertencia');
-        input.classList.remove('correct');
+    const contacto = contactos.find((contacto) => input.value === contacto.number);
+    if (contacto) {
         validation = false;
-    } else if (input.value === '') {
-        input.classList.remove('correct');
-        input.classList.remove('advertencia');
-        infoText.classList.remove('show-info');
-    } else if (validation ) {
-        input.classList.add('correct');
-        input.classList.remove('advertencia');
+        infonumber.classList.add('show-info');
         infoText.classList.remove('show-info');
     } else {
-        infoText.classList.add('show-info');
-        input.classList.add('advertencia');
-        input.classList.remove('correct');
-        infonumber.classList.remove('show-info');
+        if (input.value === '') {
+            input.classList.remove('correct');
+            input.classList.remove('advertencia');
+            infoText.classList.remove('show-info');
+        } else if (validation) {
+            input.classList.add('correct');
+            input.classList.remove('advertencia');
+            infoText.classList.remove('show-info');
+        } else {
+            infoText.classList.add('show-info');
+            input.classList.add('advertencia');
+            input.classList.remove('correct');
+            infonumber.classList.remove('show-info');
+        }
     }
 
-    if (nameValidation && numberValidation && input.value != contact.number) {
+     console.log(contacto);
+
+    if (nameValidation && numberValidation && !contacto) {
         formBtn.disabled = false;
         formBtn.classList.remove('desabilitado');
         formBtn.classList.add('habilitado');
@@ -67,7 +67,6 @@ const validateInput = async (input, validation) => {
         formBtn.classList.add('desabilitado');
         formBtn.classList.remove('habilitado')
     }
-});
 };
 
 const getContacts = async () => {
