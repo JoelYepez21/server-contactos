@@ -34,6 +34,23 @@ const validateEditInput = (input, validation) => {
         input.classList.remove('correct');
       }
 }
+const validateInputName = (input, validation) => {
+    const infoText = input.parentElement.children[2];
+
+    if (input.value === '') {
+        input.classList.remove('correct');
+        input.classList.remove('advertencia');
+        infoText.classList.remove('show-info');
+    } else if (validation) {
+        input.classList.add('correct');
+        input.classList.remove('advertencia');
+        infoText.classList.remove('show-info');
+    } else {
+        infoText.classList.add('show-info');
+        input.classList.add('advertencia');
+        input.classList.remove('correct');
+    }
+}
 const validateInput = async (input, validation) => {
     const contactos = await (await fetch('http://localhost:3007/contacts', {method: 'GET'})).json();
     const infoText = input.parentElement.children[2];
@@ -61,7 +78,7 @@ const validateInput = async (input, validation) => {
         }
     }
 
-     console.log(contacto);
+
 
     if (nameValidation && numberValidation && !contacto) {
         formBtn.disabled = false;
@@ -75,6 +92,9 @@ const validateInput = async (input, validation) => {
 };
 
 const getContacts = async () => {
+    formBtn.disabled = true;
+    formBtn.classList.add('desabilitado');
+    formBtn.classList.remove('habilitado')
     const contactos = await (await fetch('http://localhost:3007/contacts', {method: 'GET'})).json();
     const userContactos = contactos.filter(contacto => contacto.user === user.username);
     list.innerHTML = ''
@@ -105,7 +125,7 @@ getContacts();
   // Events
 inputName.addEventListener('input', e => {
     nameValidation = REGEX_NAME.test(inputName.value);
-    validateInput(inputName, nameValidation)
+    validateInputName(inputName, nameValidation)
 });
   
 inputNumber.addEventListener('input', e => {
